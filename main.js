@@ -143,43 +143,60 @@ class GameScene extends Phaser.Scene {
    * ═══════════════════════════════════════════════════════════════════════ */
 
   _makeTextures() {
-    /* ── Player (cute character with bowler hat) ────────────────────────── */
+    /* ── Player (Mafioso) ─────────────────────────────────────────────── */
     if (!this.textures.exists('player')) {
       const g = this.make.graphics({ add: false });
-      const bx = PLAYER_W / 2;             // centre X
+      const bx = PLAYER_W / 2;
 
-      // -- Hat (bowler) --
-      g.fillStyle(0x2d2d2d);               // dark grey
-      g.fillRoundedRect(bx - 14, 0, 28, 10, 3);   // brim
-      g.fillRoundedRect(bx - 10, 0, 20, 4, 2);    // top dome extra
+      // -- Fedora hat --
+      // Brim (wide)
       g.fillStyle(0x1a1a1a);
-      g.fillRoundedRect(bx - 9, 2, 18, 12, 6);    // dome
-      // hat band
-      g.fillStyle(0xc62828);
-      g.fillRect(bx - 9, 11, 18, 3);
+      g.fillRoundedRect(bx - 16, 8, 32, 6, 2);
+      // Crown
+      g.fillStyle(0x2d2d2d);
+      g.fillRoundedRect(bx - 11, 0, 22, 12, 4);
+      // Hat band (dark red)
+      g.fillStyle(0x8b0000);
+      g.fillRect(bx - 11, 9, 22, 3);
 
-      // -- Body --
-      g.fillStyle(0xffb74d);               // warm orange skin
-      g.fillRoundedRect(bx - 12, 14, 24, 26, 8);
+      // -- Suit body (dark) --
+      g.fillStyle(0x212121);
+      g.fillRoundedRect(bx - 13, 14, 26, 24, 6);
 
-      // -- Eyes --
-      g.fillStyle(0xffffff);
-      g.fillCircle(bx - 5, 24, 5);
-      g.fillCircle(bx + 5, 24, 5);
-      g.fillStyle(0x1a1a2e);
-      g.fillCircle(bx - 4, 24, 2.5);
-      g.fillCircle(bx + 6, 24, 2.5);
+      // -- Shirt + tie --
+      g.fillStyle(0xeeeeee);
+      g.fillRect(bx - 3, 14, 6, 18);         // white shirt strip
+      g.fillStyle(0x8b0000);
+      g.fillRect(bx - 1.5, 15, 3, 16);       // red tie
 
-      // -- Smile --
-      g.lineStyle(2, 0xc62828);
+      // -- Suit lapels --
+      g.fillStyle(0x303030);
+      g.fillTriangle(bx - 13, 14, bx - 3, 14, bx - 5, 24);
+      g.fillTriangle(bx + 13, 14, bx + 3, 14, bx + 5, 24);
+
+      // -- Face --
+      g.fillStyle(0xffcc80);
+      g.fillCircle(bx, 22, 6);               // head behind suit
+
+      // -- Sunglasses --
+      g.fillStyle(0x000000);
+      g.fillRoundedRect(bx - 9, 19, 8, 5, 2);   // left lens
+      g.fillRoundedRect(bx + 1, 19, 8, 5, 2);   // right lens
+      g.fillRect(bx - 1, 20, 2, 2);              // bridge
+      g.lineStyle(1, 0x333333);
+      g.lineBetween(bx - 9, 21, bx - 12, 20);   // left arm
+      g.lineBetween(bx + 9, 21, bx + 12, 20);   // right arm
+
+      // -- Smirk --
+      g.lineStyle(1.5, 0xbf360c);
       g.beginPath();
-      g.arc(bx, 30, 5, 0.2, Math.PI - 0.2);
+      g.arc(bx + 2, 27, 3, 0.3, Math.PI - 0.5);
       g.strokePath();
 
-      // -- Feet --
-      g.fillStyle(0x5d4037);
-      g.fillRoundedRect(bx - 11, 38, 9, 6, 2);
-      g.fillRoundedRect(bx + 2, 38, 9, 6, 2);
+      // -- Shoes --
+      g.fillStyle(0x0d0d0d);
+      g.fillRoundedRect(bx - 12, 37, 10, 7, 2);
+      g.fillRoundedRect(bx + 2, 37, 10, 7, 2);
 
       g.generateTexture('player', PLAYER_W, PLAYER_H);
       g.destroy();
@@ -347,7 +364,7 @@ class GameScene extends Phaser.Scene {
     if (!this.textures.exists('logo')) return;
     this.bgLogo = this.add.image(width / 2, height / 2, 'logo');
     const scale = (width / this.bgLogo.width) * 1.05;
-    this.bgLogo.setScale(scale).setAlpha(0.25).setDepth(-1).setScrollFactor(0.3, 0.3);
+    this.bgLogo.setScale(scale).setAlpha(0.25).setDepth(-1).setScrollFactor(0);
   }
 
   _initState(w, h) {
